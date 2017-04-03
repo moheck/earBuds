@@ -1,3 +1,1 @@
-Simple Chat Client with socket.io
-
-Allows users to login to a chatroom and share messages
+Join a lobby and listen to music at the same time with your friends
