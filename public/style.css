@@ -2,3 +2,43 @@
   margin: 0px;
   padding: 0px;
 }
+
+body{
+  font-family: Helvetica;
+}
+
+#main{
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+#header{
+  display: inline-block;
+  font-size: 50px;
+}
+
+#subheader{
+  display: inline-block;
+}
+
+.login.page{
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.chat.page{
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.chatArea ul{
+  list-style: none;
+}
+
+.lobbyUsers ul{
+  list-style: none;
+}
+
+#music{
+  display: inline-block;
+}

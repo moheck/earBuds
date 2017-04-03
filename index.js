@@ -11,12 +11,14 @@ http.listen(port, function () {
 
 // Routing
 app.use(express.static(__dirname + '/public'));
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 })
 
 // Chatroom
 var numUsers = 0;
+var usersLoaded = 0;
+var lobbyUsers = {};
 
 io.on('connection', function (socket) {
   var addedUser = false;
@@ -26,22 +28,49 @@ io.on('connection', function (socket) {
     console.log("server on 'new message'");
     console.log(data);
     // we tell the client to execute 'new message'
-    socket.broadcast.emit('new message', {
-      username: socket.username,
+    io.sockets.emit('new message', {
+      username: socket.userId,
       message: data
     });
   });
 
   // when the client emits 'add user', this listens and executes
-  socket.on('add user', function (username) {
+  socket.on('add user', function (userId) {
     console.log("server on 'add user'");
-    console.log(username);
-    if (addedUser) return;
+    console.log(userId);
+    socket.userId = userId;
 
+    if (!lobbyUsers[userId]) {
+      console.log('creating new user');
+      lobbyUsers[userId] = {userId: socket.userId};
+    } else {
+      console.log('user found!');
+    }
+    
     // we store the username in the socket session for this client
-    socket.username = username;
     ++numUsers;
-    addedUser = true;
-    socket.emit('login', {numUsers: numUsers});
+    io.sockets.emit('login', { numUsers: numUsers, users: lobbyUsers });
+  });
+
+  socket.on('load song', function(song){
+    io.sockets.emit('load song', song);
+  });
+
+  socket.on('play song', function(song){
+    io.sockets.emit('play song', song);
+  });
+
+  socket.on('pause song', function(song){
+    console.log("server pause song")
+    io.sockets.emit('pause song', song);
+  });
+
+  socket.on('load complete', function(load){
+    ++usersLoaded;
+    console.log("load complete, " + usersLoaded + " users loaded");
+    if(usersLoaded == numUsers){
+      usersLoaded = 0;
+      io.sockets.emit('load complete', "message");
+    }
   });
 });

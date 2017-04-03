@@ -1,23 +1,61 @@
 <!doctype html>
 <html>
 <head>
-  <title>Chat Away</title>
+  <title>Ear Buds</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="chat page">
-    <div class="chatArea">
-      <ul class="messages"></ul>
+        
+  <audio class="audioPlayer" controls>
+    <source id="audioSource" src="" type="audio/mpeg">
+  </audio>
+  
+  <div id="main">
+    <div id="hero">
+      <div id="header"> <h1> Ear Buds </h1> </div>
+      <div id="subheader"> <h3> Listen together </h3> </div>
     </div>
-    <input class="inputMessage" placeholder="Type here..."/>
-  </div>
-  <div class="login page">
-      <h1> Enter your username </h1>
-      <input class="usernameInput" placeholder="Type here..." type="text" maxlength="14" />
+
+    <div class="login page">
+        <h3> Enter a username to get started</h3>
+        <input class="usernameInput" placeholder="Type here..." type="text" maxlength="14" />
+    </div>
+
+    <div class="chat page">
+      <h3> Users in lobby: </h3>
+      <div class="lobbyUsers">
+        <ul class="users"></ul>
+      </div>
+
+      <br>
+      
+      <h3> Enter a song to play </h3>
+      <div id="music">
+        <input class="musicUrl" placeholder="enter song url..."/>
+      </div>
+
+      <input id="loadButton" type="button" value="Load Song"/>
+      <input id="playButton" type="button" value="Play!">
+      <input id="pauseButton" type="button" value="Pause">
+
+      <br>
+      <br>
+
+      <h3> Chat with people in the lobby </h3>
+      <input class="inputMessage" placeholder="Type here..."/>
+
+      <br>
+
+      <div class="chatArea">
+        <ul class="messages"></ul>
+      </div>
+    </div>
+
   </div>
 
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/main.js"></script>
+
 </body>
 </html>
